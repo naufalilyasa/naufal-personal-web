@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Personal Web</title>
+
+    <!-- Material Icon -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/bb1e6fd391.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS Style -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <ul class="navbar-links">
+        <img src="assets/img/user-profile.png" alt="" class="navbar-logo" />
+        <li class="navbar-link">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="navbar-link">
+          <a href="project.html">Project</a>
+        </li>
+      </ul>
+      <a href="contact.html" class="navbar-links nav-contact">Contact Me</a>
+    </nav>
+
+    <!-- Form Contact -->
+    <div class="form-contact-container">
+      <h1>GET IN TOUCH</h1>
+      <form action="" class="contact-form" onsubmit="submitContactForm(event)">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" />
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="text" id="email" />
+        </div>
+
+        <div class="form-field">
+          <label for="number">Phone Number</label>
+          <input type="text" id="number" />
+        </div>
+
+        <div class="form-field">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" />
+        </div>
+
+        <div class="form-field">
+          <label for="massege">Massege</label>
+          <textarea name="" id="massege" rows="10" cols="10"></textarea>
+        </div>
+
+        <button class="contact-form-button">Submit</button>
+      </form>
+    </div>
+    <script src="assets/js/contact.js"></script>
+  </body>
+</html>
