@@ -13,8 +13,42 @@
 
     <!-- CSS Style -->
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/index.css" />
   </head>
   <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-list">
+        <ul class="navbar-links">
+          <img src="assets/img/user-profile.png" alt="" class="navbar-logo" />
+          <li class="navbar-link">
+            <a href="index.html" class="active-link">Home</a>
+          </li>
+          <li class="navbar-link">
+            <a href="project.html">Project</a>
+          </li>
+        </ul>
+        <a href="contact.html" class="navbar-links nav-contact">Contact Me</a>
+      </div>
+      <!-- Navbar Mobile Display -->
+      <div class="mobile-menu">
+        <img
+          src="assets/img/user-profile.png"
+          alt=""
+          class="mobile-navbar-logo"
+        />
+        <button id="hamburgerButton" class="hamburger-button">☰</button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu List Dropdown -->
+    <div id="mobileMenuList" class="mobile-menu-list">
+      <a href="index.html" class="menu-active">Home</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact Me</a>
+    </div>
+
+    <!-- Main Section -->
     <main class="main-container">
       <!-- Description, contact, social media -->
       <div class="description-container">
@@ -40,18 +74,12 @@
         <div class="contact-list">
           <a href="contact.html" class="contact-button">contact</a>
           <div class="contact-cv">
-            <div>download CV</div>
-            <div>
-              <a href="#"><i class="material-icons">&#xe2c4;</i></a>
-            </div>
+            <p>download CV</p>
+            <a href="#" class="material-icons">&#xe2c4;</a>
           </div>
         </div>
         <!-- Social Media -->
         <div class="social-media-buttons">
-          <!-- <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a> -->
           <a href="#"
             ><img src="assets/img/linkedin.png" alt="linkedin logo"
           /></a>
@@ -66,9 +94,9 @@
           /></a>
         </div>
       </div>
-      <div class="header-card">
-        <!-- Card -->
-        <div class="card-container">
+      <!-- Card -->
+      <div class="card-container">
+        <div class="card">
           <img
             src="assets/img/IMG-20250122-WA0006.jpg"
             alt=""
@@ -81,5 +109,6 @@
         </div>
       </div>
     </main>
+    <script src="assets/js/navbarDropdown.js"></script>
   </body>
 </html>
