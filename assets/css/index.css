@@ -93,6 +93,10 @@ Main section
   margin-left: 5px;
 }
 
+.contact-cv p {
+  margin: 0;
+}
+
 .material-icons {
   /* margin-left: 10px; */
   text-decoration: none;
