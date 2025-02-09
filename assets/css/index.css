@@ -157,7 +157,8 @@ Card
 */
 
 .card-container {
-  flex: 1;
+  /* flex: 1; */
+  width: 22rem;
 }
 
 .card {
@@ -243,7 +244,8 @@ Card
   }
 
   .card-container {
-    flex: 1;
+    /* flex: 1; */
+    width: 22rem;
   }
 
   .card {
@@ -258,5 +260,11 @@ Card
   .social-media-buttons {
     margin-top: 15px;
     justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .card-container {
+    width: 18rem;
   }
 }
