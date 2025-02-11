@@ -1,0 +1,29 @@
+{
+  "name": "naufal-personal-web",
+  "version": "1.0.0",
+  "main": "express.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naufalilyasa/naufal-personal-web.git"
+  },
+  "keywords": [
+    "Naufal",
+    "Personal",
+    "Web"
+  ],
+  "author": "Naufal Ilyasa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naufalilyasa/naufal-personal-web/issues"
+  },
+  "homepage": "https://github.com/naufalilyasa/naufal-personal-web#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "hbs": "^4.2.0"
+  }
+}
