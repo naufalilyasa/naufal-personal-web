@@ -1,13 +1,13 @@
 {{#> layout currentPage = 'project'}}
 <!-- Form Project -->
 <main class="container-fluid bg-body-tertiary">
-  <section class="container w-50">
+  <section class="container form-project-container">
     <div class="d-flex flex-column">
       <h1 class="mt-3 text-center">ADD MY PROJECT</h1>
-      <form action="" class="project-form" onsubmit="submitProjectForm(event)">
+      <form action="" onsubmit="submitProjectForm(event)">
         <div class="my-3">
           <label for="name" class="form-text">Project Name</label>
-          <input type="text" id="name" name="name" class="form-control"/>
+          <input type="text" id="name" name="name" class="form-control" />
         </div>
 
         <div class="row row-cols-2 mb-3" id="date">
@@ -18,10 +18,10 @@
             <label for="endDate" class="form-text">End Date</label>
           </div>
           <div class="col">
-            <input type="date" id="startDate" name="startDate" class="form-control"/>
+            <input type="date" id="startDate" name="startDate" class="form-control" />
           </div>
           <div class="col">
-            <input type="date" id="endDate" name="endDate" class="form-control"/>
+            <input type="date" id="endDate" name="endDate" class="form-control" />
           </div>
         </div>
 
@@ -29,19 +29,19 @@
           <p class="fw-medium m-0">Technologies</p>
           <div class="row row-cols-2">
             <div class="col">
-              <input type="checkbox" name="nodeJs" id="nodeJs" class="form-check-input"/>
+              <input type="checkbox" name="nodeJs" id="nodeJs" class="form-check-input" />
               <label for="nodeJs" class="form-text">Node Js</label>
             </div>
             <div class="col">
-              <input type="checkbox" name="nextJs" id="nextJs" class="form-check-input"/>
+              <input type="checkbox" name="nextJs" id="nextJs" class="form-check-input" />
               <label for="nextJs" class="form-text">Next Js</label>
             </div>
             <div class="col">
-              <input type="checkbox" name="reactJs" id="reactJs" class="form-check-input"/>
+              <input type="checkbox" name="reactJs" id="reactJs" class="form-check-input" />
               <label for="reactJs" class="form-text">React Js</label>
             </div>
             <div class="col">
-              <input type="checkbox" name="typescript" id="typescript" class="form-check-input"/>
+              <input type="checkbox" name="typescript" id="typescript" class="form-check-input" />
               <label for="typescript" class="form-text">TypeScript</label>
             </div>
           </div>
@@ -56,7 +56,7 @@
           <label for="image" class="form-text">Upload Image</label>
           <input type="file" name="image" id="image" class="form-control" />
         </div>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mb-3">
           <button class="btn btn-primary justify-content-end" type="submit">Submit</button>
         </div>
       </form>
@@ -66,23 +66,30 @@
 
 <!-- Project List -->
 <section class="container">
-  <h1>MY PROJECT</h1>
-  <div class="project-list-container" id="projectList">
-    <div class="project-list">
-      <div class="project-container">
-        <img src="img/class.webp" alt="" />
-        <h2>Dumbways Mobile App - 2021</h2>
-        <p>durasi 3 bulan</p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
-          enim inventore. Eligendi illo ipsam reprehenderit repudiandae
-          blanditiis, officiis dolore deleniti molestias quidem ut quas incidunt
-          beatae id hic numquam cupiditate!
-        </p>
-        <div>icon</div>
-        <div>
-          <button>edit</button>
-          <button>delete</button>
+  <h1 class="text-center my-3">MY PROJECT</h1>
+  <div class="row row-cols-lg-3">
+    <div class="col">
+      <div class="card p-3 shadow gx-3 my-3" id="projectList">
+        <div class="d-flex flex-column gap-2">
+          <img src="img/class.webp" alt="" class="card-img-top" />
+          <h2 class="card-title fs-4">Dumbways Mobile App - 2021</h2>
+          <p class="fs-6 fw-light text-body-tertiary">durasi 3 bulan</p>
+          <p class="card-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+            enim inventore. Eligendi illo ipsam reprehenderit repudiandae
+            blanditiis, officiis dolore deleniti molestias quidem ut quas incidunt
+            beatae id hic numquam cupiditate!
+          </p>
+          <div class="d-flex flex-row mb-3">
+            <img src="/img/nodejs.png" alt="" width="32" height="32">
+            <img src="/img/nextjs.png" alt="" width="32" height="32">
+            <img src="/img/react.png" alt="" width="32" height="32">
+            <img src="/img/typescript.png" alt="" width="32" height="32">
+          </div>
+          <div class="d-flex flex-row gap-1">
+            <button class="btn btn-dark flex-fill">edit</button>
+            <button class="btn btn-dark flex-fill">delete</button>
+          </div>
         </div>
       </div>
     </div>
