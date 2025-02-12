@@ -1,8 +1,17 @@
 const express = require("express");
+const hbs = require("hbs");
+const methodOverride = require("method-override");
+const path = require("path");
+
 const app = express();
 const port = 3030;
-const hbs = require("hbs");
-const path = require("path");
+
+const {
+  renderHomePage,
+  renderContactPage,
+  renderProjectsPage,
+  renderProjectCreatePage,
+} = require("./controllers/controller-v1.js");
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
@@ -17,19 +26,16 @@ hbs.registerHelper("equal", function (a, b) {
 });
 
 // HOME PAGE
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.get("/", renderHomePage);
 
 // CONTACT PAGE
-app.get("/contact", (req, res) => {
-  res.render("contact");
-});
+app.get("/contact", renderContactPage);
 
 // PROJECTS PAGE
-app.get("/projects", (req, res) => {
-  res.render("projects");
-});
+app.get("/projects", renderProjectsPage);
+
+// CREATE PROJECT PAGE
+app.get("/project-create", renderProjectCreatePage);
 
 app.listen(port, () => {
   console.log(`app listening to port ${port}`);
