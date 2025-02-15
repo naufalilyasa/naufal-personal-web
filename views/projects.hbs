@@ -4,17 +4,16 @@
   <h1 class="text-center my-3">MY PROJECT</h1>
   <a href="/project-create" class="btn btn-primary">Create Project</a>
   <div class="row row-cols-lg-3">
+    {{#each projects}}
     <div class="col">
       <div class="card p-3 shadow gx-3 my-3" id="projectList">
         <div class="d-flex flex-column gap-2">
-          <img src="img/class.webp" alt="" class="card-img-top" />
-          <h2 class="card-title fs-4">Dumbways Mobile App - 2021</h2>
+          <img src="{{this.image}}" alt="" class="card-img-top" />
+          {{!-- <p>{{this.image}}</p> --}}
+          <h2 class="card-title fs-4">{{this.projectName}}</h2>
           <p class="fs-6 fw-light text-body-tertiary">durasi 3 bulan</p>
           <p class="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
-            enim inventore. Eligendi illo ipsam reprehenderit repudiandae
-            blanditiis, officiis dolore deleniti molestias quidem ut quas incidunt
-            beatae id hic numquam cupiditate!
+            {{this.description}}
           </p>
           <div class="d-flex flex-row mb-3">
             <img src="/img/nodejs.png" alt="" width="32" height="32">
@@ -29,6 +28,7 @@
         </div>
       </div>
     </div>
+    {{/each}}
   </div>
 </section>
 {{/layout}}

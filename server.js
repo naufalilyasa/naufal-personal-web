@@ -18,7 +18,7 @@ app.set("views", path.join(__dirname, "./views"));
 
 app.use(express.static("assets"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 hbs.registerPartials(__dirname + "/views/partials", function (err) {});
 hbs.registerHelper("equal", function (a, b) {
