@@ -38,7 +38,7 @@ module.exports = {
           technologyTypescript: true,
           description:
             "Web toko online menggunakan nodejs, nextjs, reactjs dan typescript.",
-          image: "/img/blog-img.jpg",
+          image: "/img/blog-img.png",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
