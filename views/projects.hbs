@@ -10,20 +10,48 @@
         <div class="d-flex flex-column gap-2">
           <img src="{{this.image}}" alt="" class="card-img-top" />
           {{!-- <p>{{this.image}}</p> --}}
-          <h2 class="card-title fs-4">{{this.projectName}}</h2>
-          <p class="fs-6 fw-light text-body-tertiary">durasi 3 bulan</p>
+          <h2 id="projectName{{this.id}}" class="card-title fs-4">{{this.projectName}}</h2>
+          <p class="fs-6 fw-light text-body-tertiary">durasi {{projectDuration this.startProjectDate this.endProjectDate}}</p>
           <p class="card-text">
             {{this.description}}
           </p>
           <div class="d-flex flex-row mb-3">
+            {{#if this.technologyNodeJs}}
             <img src="/img/nodejs.png" alt="" width="32" height="32">
+            {{/if}}
+            {{#if this.technologyNextJs}}
             <img src="/img/nextjs.png" alt="" width="32" height="32">
+            {{/if}}
+            {{#if this.technologyReactJs}}
             <img src="/img/react.png" alt="" width="32" height="32">
+            {{/if}}
+            {{#if this.technologyTypescript}}
             <img src="/img/typescript.png" alt="" width="32" height="32">
+            {{/if}}
           </div>
           <div class="d-flex flex-row gap-1">
-            <button class="btn btn-dark flex-fill">edit</button>
-            <button class="btn btn-dark flex-fill">delete</button>
+            <a href="/project-edit/{{this.id}}" class="btn btn-dark flex-fill">edit</a>
+            <button class="btn btn-outline-danger flex-fill" data-bs-toggle="modal" data-bs-target="#exampleModal">delete</button>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Project</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body f2-medium">
+                  Are you sure you want to DELETE?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <form action="/project/{{this.id}}?_method=DELETE" method="post">
+                    <button class="btn btn-outline-danger" type="submit">DELETE</button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -31,4 +59,5 @@
     {{/each}}
   </div>
 </section>
+
 {{/layout}}
