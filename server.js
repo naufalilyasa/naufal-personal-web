@@ -25,6 +25,7 @@ app.set("views", path.join(__dirname, "./views"));
 app.use(express.static("assets"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 hbs.registerPartials(__dirname + "/views/partials", function (err) {});
 hbs.registerHelper("equal", function (a, b) {
@@ -51,10 +52,10 @@ app.get("/project-edit/:id", renderEditProjectPage);
 app.post("/project-create", createProject);
 
 // DELETE PROJECT
-app.post("/project/:id", deleteProject);
+app.delete("/project/:id", deleteProject);
 
 // UPDATE PROJECT
-app.post("/project-update/:id", updateProject);
+app.put("/project-update/:id", updateProject);
 
 // 404 NOT FOUND PAGE
 app.get("*", render404NotFoundPage);
