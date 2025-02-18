@@ -86,7 +86,7 @@ app.post("/login", authLogin);
 app.post("/register", authRegister);
 
 // LOGOUT
-app.post("/logout", authLogout);
+app.get("/logout", authLogout);
 
 // 404 NOT FOUND PAGE
 app.get("*", render404NotFoundPage);

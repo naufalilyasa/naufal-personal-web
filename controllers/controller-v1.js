@@ -185,7 +185,7 @@ async function authRegister(req, res) {
 }
 
 // LOGOUT
-async function authLogout(req, res) {
+function authLogout(req, res) {
   req.session.user = null;
   res.redirect("/login");
 }

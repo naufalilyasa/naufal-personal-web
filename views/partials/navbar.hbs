@@ -40,7 +40,9 @@
       </ul>
       {{#if user}}
       <span class="me-3">Selamat datang, {{user.name}}</span>
-      <a href="/logout" class="btn btn-secondary me-3">Logout</a>
+      {{!-- <form action="/logout" method="get"> --}}
+      <a href="/logout" class="btn btn-secondary me-3" type="submit">Logout</a>
+      {{!-- </form> --}}
       {{/if}}
       <a href="/contact" class="btn px-3 py-2 btn-dark rounded-5">
         Contact Me
