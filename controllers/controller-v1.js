@@ -1,4 +1,7 @@
 const { Project } = require("../models");
+const { Sequelize } = require("sequelize");
+
+const sequelize = new Sequelize(config.development);
 
 // RENDER HOME PAGE
 function renderHomePage(req, res) {
@@ -103,6 +106,7 @@ async function updateProject(req, res) {
     technologyReactJs: Boolean(reactJs),
     technologyTypescript: Boolean(typescript),
     description: description,
+    updatedAt: sequelize.fn("NOW"),
   };
 
   const updatedProject = await Project.update(editedProject, {
