@@ -11,157 +11,16 @@ p {
   font-weight: 300;
 }
 
-/* 
-
-Navbar
-
-*/
-
-.navbar {
-  background-color: white;
-  width: 100%;
-  box-shadow: inset 0 4px 10px 2px lightgray;
+/* INDEX CUSTOM STYLE */
+.alert-index-container {
 }
 
-.navbar-list {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  margin: 0 auto;
+/* REGISTER CUSTOM STYLE */
+.register-form-container {
+  width: 50%;
 }
 
-.mobile-menu {
-  display: none;
-}
-
-.mobile-menu-list {
-  display: none;
-}
-
-.navbar-links {
-  display: flex;
-  /* padding: 20px; */
-  align-items: center;
-  gap: 40px;
-  text-decoration: none;
-  font-size: 18px;
-  /* margin-left: 50px; */
-}
-
-.navbar-link {
-  list-style: none;
-  /* font-weight: 800; */
-  display: inline-block;
-}
-
-.navbar-link > a {
-  text-decoration: none;
-}
-
-.navbar-link > a:link {
-  color: #222222;
-}
-
-.navbar-link > a:active {
-  color: #222222;
-}
-
-.navbar-link > a:visited {
-  color: #222222;
-}
-
-.active-link {
-  font-weight: 800;
-}
-
-.navbar-logo {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-}
-
-.nav-contact {
-  /* margin-right: 100px; */
-  border-radius: 20px;
-  /* align-items: center; */
-  color: white;
-  background-color: #272727;
-  padding: 10px 20px;
-  /* width: 10%; */
-  border: 2px solid #272727;
-  /* text-align: center; */
-  font-size: 16px;
-  transition: background-color 0.15s, color 0.15s;
-}
-
-.nav-contact:hover {
-  cursor: pointer;
-  background-color: rgb(198, 193, 193);
-  color: #222222;
-  border: 2px solid #272727;
-  text-decoration: none;
-}
-
-.nav-contact:active {
-  opacity: 0.7;
-}
-
-@media screen and (max-width: 768px) {
-  .navbar {
-    width: 100%;
-  }
-
-  .navbar-list {
-    display: none;
-  }
-
-  .mobile-menu {
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    margin: 0 auto;
-  }
-
-  .mobile-navbar-logo {
-    /* display: flex; */
-    width: 50px;
-    height: 50px;
-    /* margin-left: 20px; */
-  }
-
-  .hamburger-button {
-    text-align: right;
-    font-size: 36px;
-    /* margin-right: 20px; */
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-  }
-
-  .mobile-menu-list {
-    display: none;
-  }
-
-  .mobile-menu-list a {
-    display: block;
-    text-decoration: none;
-    border: 1px solid white;
-    background-color: rgb(198, 198, 198);
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-  }
-
-  .menu-active {
-    background-color: #272727 !important;
-    color: white;
-  }
-
-  .show {
-    display: block;
-  }
+/* LOGIN CUSTOM STYLE */
+.login-form-container {
+  width: 40%;
 }

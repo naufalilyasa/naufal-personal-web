@@ -1,5 +1,10 @@
-{{#> layout currentPage = 'home'}}
+{{#> layout currentPage = 'home' user = user}}
 <!-- Main Section -->
+{{#if messages.success}}
+<div class="container alert alert-success mt-3" role="alert">
+  {{messages.success}} {{user.name}}
+</div>
+{{/if}}
 <main class="container">
   <div
     class="d-flex flex-md-row flex-column justify-content-md-center align-items-md-center justify-content-start align-items-start shadow p-4 my-4 mx-auto gap-3">

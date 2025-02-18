@@ -2,6 +2,8 @@ const express = require("express");
 const hbs = require("hbs");
 const methodOverride = require("method-override");
 const path = require("path");
+const flash = require("express-flash");
+const session = require("express-session");
 
 const app = express();
 const port = 3030;
@@ -16,6 +18,11 @@ const {
   renderEditProjectPage,
   render404NotFoundPage,
   updateProject,
+  authLoginPage,
+  authRegisterPage,
+  authLogin,
+  authRegister,
+  authLogout,
 } = require("./controllers/controller-v1.js");
 const { projectDuration } = require("./utils/projectDuration.js");
 
@@ -26,6 +33,15 @@ app.use(express.static("assets"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(flash());
+app.use(
+  session({
+    name: "mySession",
+    secret: "mySecret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 hbs.registerPartials(__dirname + "/views/partials", function (err) {});
 hbs.registerHelper("equal", function (a, b) {
@@ -56,6 +72,21 @@ app.delete("/project/:id", deleteProject);
 
 // UPDATE PROJECT
 app.put("/project-update/:id", updateProject);
+
+// LOGIN PAGE
+app.get("/login", authLoginPage);
+
+// REGISTER PAGE
+app.get("/register", authRegisterPage);
+
+// LOGIN
+app.post("/login", authLogin);
+
+// REGISTER
+app.post("/register", authRegister);
+
+// LOGOUT
+app.post("/logout", authLogout);
 
 // 404 NOT FOUND PAGE
 app.get("*", render404NotFoundPage);
