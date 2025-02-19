@@ -8,6 +8,6 @@ function submitContactForm(event) {
 
   let emailTo = "naufal.ilyasa7@gmail.com";
   let a = document.createElement("a");
-  a.href = `mailto:${emailTo}?subject:${subject}&body${`Hello my name ${name}, my number ${number}, ${massege}`}`;
+  a.href = `mailto:${emailTo}?subject=${subject}&body=${`Hello my name ${name}, my number ${number}, my email ${email},\n ${massege}`}`;
   a.click();
 }
