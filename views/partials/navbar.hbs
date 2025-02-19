@@ -37,12 +37,24 @@
           {{/if}}
           " href="/projects">Projects</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link
+          {{#if (equal currentPage "blogs") }}
+           active fw-medium
+          {{/if}}
+          " href="/blogs">Blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link
+          {{#if (equal currentPage "testimonials") }}
+           active fw-medium
+          {{/if}}
+          " href="/testimonials">Testimonial</a>
+        </li>
       </ul>
       {{#if user}}
       <span class="me-3">Selamat datang, {{user.name}}</span>
-      {{!-- <form action="/logout" method="get"> --}}
       <a href="/logout" class="btn btn-secondary me-3" type="submit">Logout</a>
-      {{!-- </form> --}}
       {{/if}}
       <a href="/contact" class="btn px-3 py-2 btn-dark rounded-5">
         Contact Me

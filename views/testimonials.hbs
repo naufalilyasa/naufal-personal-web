@@ -1,0 +1,38 @@
+{{#> layout currentPage = 'testimonials'}}
+
+<!-- Testimonials -->
+<main class="container">
+  <div class="d-flex flex-column gap-3 justify-content-center align-items-center mt-3">
+    <h1>My Testimonials</h1>
+    <p>Rating by Star</p>
+    <div class="d-flex flex-row gap-3">
+      <button class="btn btn-primary" onclick="showAllTestimonials()">All</button>
+      <button class="btn btn-primary bi bi-star-fill" onclick="filterTestimonialsByStar(1)"> 1</button>
+      <button class="btn btn-primary bi bi-star-fill" onclick="filterTestimonialsByStar(2)"> 2</button>
+      <button class="btn btn-primary bi bi-star-fill" onclick="filterTestimonialsByStar(3)"> 3</button>
+      <button class="btn btn-primary bi bi-star-fill" onclick="filterTestimonialsByStar(4)"> 4</button>
+      <button class="btn btn-primary bi bi-star-fill" onclick="filterTestimonialsByStar(5)"> 5</button>
+    </div>
+    <div id="testimonialsContainer" class="row row-cols-lg-3 gy-4 my-3">
+      <article class="col w-100">
+        <p>No testimonials.</p>
+      </article>
+      {{!-- <article class="col">
+        <div class="card border border-dark-subtle border-2 p-3">
+          <img class="card-img-top" src="img/user-4.png" alt="" />
+          <div class="card-body">
+            <p class="fw-light text-body-tertiary fst-italic">"Lorem ipsum
+              dolor sit amet."</p>
+            <p class="card-text text-end">- Alex Joshua</p>
+            <p class="card-text text-end">★5</p>
+          </div>
+        </div>
+      </article> --}}
+    </div>
+
+  </div>
+</main>
+
+<script src="/js/testimonials.js"></script>
+
+{{/layout}}
