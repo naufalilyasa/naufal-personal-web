@@ -53,7 +53,7 @@ async function renderBlogDetailPage(req, res) {
 // CREATE BLOG
 async function createBlog(req, res) {
   const { title, content } = req.body;
-  let image = "https://picsum.photos/200/150";
+  let image = "https://picsum.photos/200/200";
   const createdBlog = await Blog.create({
     title: title,
     image: image,

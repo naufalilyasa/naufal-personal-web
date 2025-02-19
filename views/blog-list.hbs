@@ -11,16 +11,15 @@
       <article class="col border border-2 rounded p-3 mb-3">
         <div class="row row-cols-lg-2 row-cols-sm-1 gy-3">
           <div class="col-lg-4">
-            <img src="{{this.image}}" alt="in the classroom" class="blog-img-width rounded" />
+            <img src="{{this.image}}" alt="in the classroom" class="w-100 rounded" />
           </div>
           <div class="col-lg-8">
             <div class="d-flex flex-column">
               <div class="d-flex flex-row justify-content-end gap-3 order-lg-1 order-2">
                 <a href="/blog-edit/{{this.id}}" class="btn btn-secondary">Edit Blog</a>
-                <form action="/blog/{{this.id}}?_method=DELETE" method="post">
-                  <button onclick="return confirm('Are you sure')" class="btn btn-danger" type="submit">Delete
-                    Blog</button>
-                </form>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete
+                    Blog
+                </button>
               </div>
               <div class="d-flex flex-column order-lg-2 order-1">
                 <a href="/blog-detail/{{this.id}}" class="text-decoration-none fs-1 fw-bold text-black">
@@ -36,6 +35,26 @@
                 <p class="blog-item-relative-time">
                   {{getRelativeTime this.createdAt}}
                 </p>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Project</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body f2-medium">
+                  Are you sure you want to DELETE?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <form action="/blog/{{this.id}}?_method=DELETE" method="post">
+                    <button class="btn btn-outline-danger" type="submit">DELETE</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

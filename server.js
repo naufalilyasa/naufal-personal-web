@@ -24,7 +24,18 @@ const {
   authRegister,
   authLogout,
 } = require("./controllers/controller-v1.js");
+const {
+  renderBlogPage,
+  renderBlogDetailPage,
+  renderCreateBlogPage,
+  renderEditBlogPage,
+  createBlog,
+  updateBlog,
+  deleteBlog,
+} = require("./controllers/controller-v2.js");
+const { renderTestimonialsPage } = require("./controllers/controller-v3.js");
 const { projectDuration } = require("./utils/projectDuration.js");
+const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
@@ -48,12 +59,17 @@ hbs.registerHelper("equal", function (a, b) {
   return a === b;
 });
 hbs.registerHelper("projectDuration", projectDuration);
+hbs.registerHelper("formatDateToWIB", formatDateToWIB);
+hbs.registerHelper("getRelativeTime", getRelativeTime);
 
 // RENDER HOME PAGE
 app.get("/", renderHomePage);
 
 // RENDER CONTACT PAGE
 app.get("/contact", renderContactPage);
+
+// RENDER TESTIMONIALS PAGE
+app.get("/testimonials", renderTestimonialsPage);
 
 // RENDER PROJECTS PAGE
 app.get("/projects", renderProjectsPage);
@@ -73,10 +89,10 @@ app.delete("/project/:id", deleteProject);
 // UPDATE PROJECT
 app.put("/project-update/:id", updateProject);
 
-// LOGIN PAGE
+// RENDER LOGIN PAGE
 app.get("/login", authLoginPage);
 
-// REGISTER PAGE
+// RENDER REGISTER PAGE
 app.get("/register", authRegisterPage);
 
 // LOGIN
@@ -87,6 +103,27 @@ app.post("/register", authRegister);
 
 // LOGOUT
 app.get("/logout", authLogout);
+
+// BLOG-LIST PAGE
+app.get("/blogs", renderBlogPage);
+
+// BLOG-DETAIL PAGE
+app.get("/blog-detail/:id", renderBlogDetailPage);
+
+// BLOG-CREATE PAGE
+app.get("/blog-create", renderCreateBlogPage);
+
+// BLOG-EDIT PAGE
+app.get("/blog-edit/:id", renderEditBlogPage);
+
+// CREATE BLOG
+app.post("/blog-create", createBlog);
+
+// UPDATE BLOG
+app.put("/blog-edit/:id", updateBlog);
+
+// DELETE BLOG
+app.delete("/blog/:id", deleteBlog);
 
 // 404 NOT FOUND PAGE
 app.get("*", render404NotFoundPage);
