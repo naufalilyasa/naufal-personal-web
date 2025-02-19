@@ -1,0 +1,17 @@
+{{#> layout currentPage = "blogs"}}
+
+<!-- Blog Detail -->
+<article class="container w-75 my-4">
+  <div class="d-flex flex-column gap-3">
+    <h1>{{blog.title}}</h1>
+
+    <p>{{formatDateToWIB blog.createdAt}} | {{blog.authorId}}</p>
+
+    <img src="{{blog.image}}" alt="In the classroom" class="blog-detail-img" />
+
+    <p>
+      {{blog.content}}
+    </p>
+  </div>
+</article>
+{{/layout}}
