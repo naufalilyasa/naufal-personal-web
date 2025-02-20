@@ -2,7 +2,7 @@
 <main class="container">
   <!-- Blog List -->
   <section id="blogList" class="container">
-    <h1 class="text-center mt-3">My Blogs</h1>
+    <h1 class="text-center my-3">BLOGS</h1>
     {{#if user}}
     <div class="d-flex justify-content-end my-3">
       <a href="/blog-create" class="btn btn-primary">Create Blog</a>
@@ -17,16 +17,22 @@
           </div>
           <div class="col-lg-8">
             <div class="d-flex flex-column">
+              {{#if (equal ../user.id this.authorId) }}
               <div class="d-flex flex-row justify-content-end gap-3 order-lg-1 order-2">
                 <a href="/blog-edit/{{this.id}}" class="btn btn-secondary">Edit Blog</a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete
-                    Blog
+                <input type="hidden" id="delete{{this.id}}"  value="/blogs/{{this.id}}?_method=DELETE">
+                <button
+                  class="btn btn-danger" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#exampleModal"
+                  onclick="passingDataToModal({{this.id}})" >
+                  Delete Blog
                 </button>
               </div>
+              {{/if}}
               <div class="d-flex flex-column order-lg-2 order-1">
                 <a href="/blog-detail/{{this.id}}" class="text-decoration-none fs-1 fw-bold text-black">
                   <h1>{{this.title}}</h1>
-
                 </a>
                 <p>
                   {{formatDateToWIB this.createdAt}} | {{this.user.name}}
@@ -53,7 +59,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  <form action="/blog/{{this.id}}?_method=DELETE" method="post">
+                  <form id="formDeleteModal" action="" method="post">
                     <button class="btn btn-outline-danger" type="submit">DELETE</button>
                   </form>
                 </div>
@@ -66,4 +72,5 @@
     </div>
   </section>
 </main>
+<script src="/js/modal.js"></script>
 {{/layout}}

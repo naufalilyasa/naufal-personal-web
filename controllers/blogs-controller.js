@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 const config = require("../config/config.json");
-const { Blog, User } = require("../models/");
+const { Blog, User } = require("../models");
 
 const sequelize = new Sequelize(config.development);
 
@@ -34,13 +34,19 @@ function renderCreateBlogPage(req, res) {
 async function renderEditBlogPage(req, res) {
   const user = req.session.user;
   const id = req.params.id;
+  console.log("user:", user);
+
+  if (!user) {
+    return res.redirect("/login");
+  }
 
   const blogYangDipilih = await Blog.findOne({
+    include: { model: User, as: "user", attributes: { exclude: ["password"] } },
     where: { id: id },
   });
 
-  if (!user) {
-    redirect("/login");
+  if (user.id !== blogYangDipilih.user.id) {
+    return res.redirect("/unauthorized");
   }
 
   if (blogYangDipilih === null) {
@@ -56,6 +62,7 @@ async function renderBlogDetailPage(req, res) {
   const id = req.params.id;
 
   const blogYangDipilih = await Blog.findOne({
+    include: { model: User, as: "user", attributes: { exclude: ["password"] } },
     where: { id: id },
   });
 
@@ -66,22 +73,28 @@ async function renderBlogDetailPage(req, res) {
   if (blogYangDipilih === null) {
     res.render("page-404");
   } else {
-    res.render("blog-detail", { blog: blogYangDipilih, user: user });
+    res.render("blog-detail", {
+      blog: blogYangDipilih,
+      userData: blogYangDipilih.user,
+    });
   }
 }
 
 // CREATE BLOG
 async function createBlog(req, res) {
+  const userData = req.session.user;
   const { title, content } = req.body;
-  let image = "https://picsum.photos/200/200";
+  let image = "https://picsum.photos/200/150";
+
   const createdBlog = await Blog.create({
     title: title,
+    authorId: userData.id,
     image: image,
     content: content,
   })
-    .then((res) => {
-      console.log(res);
-    })
+    // .then((res) => {
+    //   console.log(res);
+    // })
     .catch((error) => console.error(error));
 
   res.redirect("/blogs");

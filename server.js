@@ -17,7 +17,7 @@ const {
   deleteProject,
   renderEditProjectPage,
   updateProject,
-} = require("./controllers/controller-v1.js");
+} = require("./controllers/projects-controller.js");
 const {
   renderBlogPage,
   renderBlogDetailPage,
@@ -26,21 +26,21 @@ const {
   createBlog,
   updateBlog,
   deleteBlog,
-} = require("./controllers/controller-v2.js");
+} = require("./controllers/blogs-controller.js");
 const {
   authLoginPage,
   authRegisterPage,
   authLogin,
   authRegister,
   authLogout,
-} = require("./controllers/controller-v3.js");
+} = require("./controllers/auth-controller.js");
 const {
   renderHomePage,
   renderContactPage,
   renderTestimonialsPage,
   renderUnauthorizedPage,
   render404NotFoundPage,
-} = require("./controllers/controller-v4.js");
+} = require("./controllers/controller-v1.js");
 const { projectDuration } = require("./utils/projectDuration.js");
 const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
 
@@ -130,10 +130,10 @@ app.post("/blog-create", createBlog);
 app.put("/blog-edit/:id", updateBlog);
 
 // DELETE BLOG
-app.delete("/blog/:id", deleteBlog);
+app.delete("/blogs/:id", deleteBlog);
 
 // RENDER UNAUTHORIZED PAGE
-app.get("/unauhthorized", renderUnauthorizedPage);
+app.get("/unauthorized", renderUnauthorizedPage);
 
 // RENDER 404 NOT FOUND PAGE
 app.get("*", render404NotFoundPage);

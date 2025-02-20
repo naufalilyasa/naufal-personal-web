@@ -52,13 +52,24 @@
           " href="/testimonials">Testimonials</a>
         </li>
       </ul>
-      {{#if user}}
-      <span class="me-3">Selamat datang, {{user.name}}</span>
-      <a href="/logout" class="btn btn-secondary me-3" type="submit">Logout</a>
-      {{/if}}
-      <a href="/contact" class="btn px-3 py-2 btn-dark rounded-5">
-        Contact Me
-      </a>
+      <div class="d-flex flex-column flex-lg-row gap-3 justify-content-lg-center align-items-lg-center">
+        {{#if user}}
+        <span class="me-3">Selamat datang, {{user.name}}</span>
+        <a href="/logout" class="btn btn-secondary px-3 py-2 me-0 me-lg-3 rounded-5" type="submit">Logout</a>
+        {{/if}}
+        <a href="/contact" class="btn px-3 py-2 btn-dark rounded-5">
+          Contact Us
+        </a>
+        {{#if user}}
+        {{else}}
+        <a href="/login" class="btn px-3 py-2 btn-dark rounded-5">
+          Login
+        </a>
+        <a href="/register" class="btn px-3 py-2 btn-dark rounded-5">
+          Register
+        </a>
+        {{/if}}
+      </div>
     </div>
   </div>
 </nav>
