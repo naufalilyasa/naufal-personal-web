@@ -1,52 +1,72 @@
 const { Sequelize } = require("sequelize");
 const config = require("../config/config.json");
 const { Blog, User } = require("../models/");
-const bcript = require("bcrypt");
 
 const sequelize = new Sequelize(config.development);
 
 // RENDER BLOGS PAGE
 async function renderBlogPage(req, res) {
+  const user = req.session.user;
   const blogs = await Blog.findAll({
+    include: { model: User, as: "user", attributes: { exclude: ["password"] } },
     order: [["createdAt", "DESC"]],
   });
-  // console.log(blogs);
 
-  res.render("blog-list", { blogs: blogs });
+  if (!user) {
+    res.render("blog-list", { blogs: blogs });
+  } else {
+    res.render("blog-list", { blogs: blogs, user: user });
+  }
+  // console.log(blogs);
 }
 
 // BLOG-CREATE PAGE
 function renderCreateBlogPage(req, res) {
+  const user = req.session.user;
+
+  if (!user) {
+    res.redirect("/login");
+  }
   res.render("blog-create");
 }
 
 // RENDER EDIT PAGE
 async function renderEditBlogPage(req, res) {
+  const user = req.session.user;
   const id = req.params.id;
 
   const blogYangDipilih = await Blog.findOne({
     where: { id: id },
   });
 
+  if (!user) {
+    redirect("/login");
+  }
+
   if (blogYangDipilih === null) {
     res.render("page-404");
   } else {
-    res.render("blog-edit", { blog: blogYangDipilih });
+    res.render("blog-edit", { blog: blogYangDipilih, user: user });
   }
 }
 
 // RENDER BLOG DETAIL PAGE
 async function renderBlogDetailPage(req, res) {
+  const user = req.session.user;
   const id = req.params.id;
 
   const blogYangDipilih = await Blog.findOne({
     where: { id: id },
   });
 
+  if (!user) {
+    res.redirect("/login");
+  }
+
   if (blogYangDipilih === null) {
     res.render("page-404");
   } else {
-    res.render("blog-detail", { blog: blogYangDipilih });
+    res.render("blog-detail", { blog: blogYangDipilih, user: user });
   }
 }
 

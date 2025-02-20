@@ -1,20 +1,8 @@
-const { Project, User } = require("../models");
+const { Project } = require("../models");
 const { Sequelize } = require("sequelize");
-const bcript = require("bcrypt");
 const config = require("../config/config");
 
 const sequelize = new Sequelize(config.development);
-
-// RENDER HOME PAGE
-function renderHomePage(req, res) {
-  const user = req.session.user;
-  res.render("index", { user: user });
-}
-
-// RENDER CONTACT PAGE
-function renderContactPage(req, res) {
-  res.render("contact");
-}
 
 // RENDER PROJECTS PAGE
 async function renderProjectsPage(req, res) {
@@ -121,93 +109,11 @@ async function updateProject(req, res) {
   res.redirect("/projects");
 }
 
-// LOGIN PAGE
-function authLoginPage(req, res) {
-  res.render("auth-login");
-}
-
-// REGISTER PAGE
-function authRegisterPage(req, res) {
-  res.render("auth-register");
-}
-
-// LOGIN
-async function authLogin(req, res) {
-  const { email, password } = req.body;
-
-  const userData = await User.findOne({ where: { email } });
-
-  if (!userData) {
-    req.flash("error", "Email tidak ditemukan");
-    return res.redirect("/login");
-  }
-
-  const isValidatedPassword = await bcript.compare(password, userData.password);
-
-  if (!isValidatedPassword) {
-    req.flash("error", "Password salah!");
-    return res.redirect("/login");
-  }
-
-  let loggedInUser = userData.toJSON();
-  req.session.user = loggedInUser;
-
-  req.flash("success", "Berhasil Login");
-  return res.redirect("/");
-}
-
-// REGISTER
-async function authRegister(req, res) {
-  const { name, email, password, confirmPassword } = req.body;
-  const user = await User.findOne({ where: { email } });
-  if (user) {
-    req.flash("error", "Email sudah terpakai!");
-    return res.redirect("/register");
-  }
-
-  if (password !== confirmPassword) {
-    req.flash("error", "password and confirm password mismatch!");
-    return res.redirect("/register");
-  }
-
-  const hashedPassword = await bcript.hash(password, 10);
-  const userDataInput = {
-    name,
-    email,
-    password: hashedPassword,
-  };
-  console.log(userDataInput);
-
-  const newUser = await User.create(userDataInput);
-
-  req.flash("success", "Berhasil mendaftar silahkan login!");
-  res.redirect("/login");
-}
-
-// LOGOUT
-function authLogout(req, res) {
-  req.session.user = null;
-  res.redirect("/login");
-}
-
-// RENDER 404 NOT FOUND PAGE
-function render404NotFoundPage(req, res) {
-  res.render("404-not-found");
-}
-
 module.exports = {
-  renderHomePage,
-  renderContactPage,
   renderProjectsPage,
   renderProjectCreatePage,
   renderEditProjectPage,
   createProject,
   deleteProject,
   updateProject,
-  authLoginPage,
-  authRegisterPage,
-  authLogin,
-  authRegister,
-  authLogout,
-  render404NotFoundPage,
 };

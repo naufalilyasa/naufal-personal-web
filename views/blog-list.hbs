@@ -3,9 +3,11 @@
   <!-- Blog List -->
   <section id="blogList" class="container">
     <h1 class="text-center mt-3">My Blogs</h1>
+    {{#if user}}
     <div class="d-flex justify-content-end my-3">
       <a href="/blog-create" class="btn btn-primary">Create Blog</a>
     </div>
+    {{/if}}
     <div class="row row-cols-1">
       {{#each blogs}}
       <article class="col border border-2 rounded p-3 mb-3">
@@ -27,7 +29,7 @@
 
                 </a>
                 <p>
-                  {{formatDateToWIB this.createdAt}} | {{this.authorId}}
+                  {{formatDateToWIB this.createdAt}} | {{this.user.name}}
                 </p>
                 <p>
                   {{this.content}}

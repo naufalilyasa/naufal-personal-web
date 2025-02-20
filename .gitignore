@@ -1,3 +1,5 @@
 assets/img/IMG-20250122-WA0006.jpg
 node_modules
 package-lock.json
+.env
+uploads/**

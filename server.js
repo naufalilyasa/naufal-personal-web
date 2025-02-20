@@ -4,25 +4,19 @@ const methodOverride = require("method-override");
 const path = require("path");
 const flash = require("express-flash");
 const session = require("express-session");
+require("dotenv");
 
 const app = express();
+// const port = process.env.PORT;
 const port = 3030;
 
 const {
-  renderHomePage,
-  renderContactPage,
   renderProjectsPage,
   renderProjectCreatePage,
   createProject,
   deleteProject,
   renderEditProjectPage,
-  render404NotFoundPage,
   updateProject,
-  authLoginPage,
-  authRegisterPage,
-  authLogin,
-  authRegister,
-  authLogout,
 } = require("./controllers/controller-v1.js");
 const {
   renderBlogPage,
@@ -33,7 +27,20 @@ const {
   updateBlog,
   deleteBlog,
 } = require("./controllers/controller-v2.js");
-const { renderTestimonialsPage } = require("./controllers/controller-v3.js");
+const {
+  authLoginPage,
+  authRegisterPage,
+  authLogin,
+  authRegister,
+  authLogout,
+} = require("./controllers/controller-v3.js");
+const {
+  renderHomePage,
+  renderContactPage,
+  renderTestimonialsPage,
+  renderUnauthorizedPage,
+  render404NotFoundPage,
+} = require("./controllers/controller-v4.js");
 const { projectDuration } = require("./utils/projectDuration.js");
 const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
 
@@ -125,7 +132,10 @@ app.put("/blog-edit/:id", updateBlog);
 // DELETE BLOG
 app.delete("/blog/:id", deleteBlog);
 
-// 404 NOT FOUND PAGE
+// RENDER UNAUTHORIZED PAGE
+app.get("/unauhthorized", renderUnauthorizedPage);
+
+// RENDER 404 NOT FOUND PAGE
 app.get("*", render404NotFoundPage);
 app.get("/404-not-found", render404NotFoundPage);
 
