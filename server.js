@@ -41,13 +41,16 @@ const {
   renderUnauthorizedPage,
   render404NotFoundPage,
 } = require("./controllers/controller-v1.js");
+const upload = require("./middlewares/upload-file.js");
 const { projectDuration } = require("./utils/projectDuration.js");
 const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
+const checkUser = require("./middlewares/auth.js");
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
 
 app.use(express.static("assets"));
+app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -124,10 +127,11 @@ app.get("/blog-create", renderCreateBlogPage);
 app.get("/blog-edit/:id", renderEditBlogPage);
 
 // CREATE BLOG
-app.post("/blog-create", createBlog);
+app.post("/blog-create", checkUser, upload.single("image"), createBlog);
 
 // UPDATE BLOG
 app.put("/blog-edit/:id", updateBlog);
+// app.put("/blog-edit/:id", checkUser, upload.single("image"), updateBlog);
 
 // DELETE BLOG
 app.delete("/blog/:id", deleteBlog);

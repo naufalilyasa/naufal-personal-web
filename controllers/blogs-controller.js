@@ -84,7 +84,13 @@ async function renderBlogDetailPage(req, res) {
 async function createBlog(req, res) {
   const userData = req.session.user;
   const { title, content } = req.body;
-  let image = "https://picsum.photos/200/150";
+  let dummyImage = "https://picsum.photos/200/150";
+  const image = req.file.path;
+
+  if (!userData) {
+    req.flash("error", "Please login");
+    return res.redirect("/login");
+  }
 
   const createdBlog = await Blog.create({
     title: title,
@@ -115,11 +121,13 @@ async function deleteBlog(req, res) {
 async function updateBlog(req, res) {
   const id = req.params.id;
   const { title, content } = req.body;
+  // const image = req.file.path;
 
   const updatedBlog = await Blog.update(
     {
       title: title,
       content: content,
+      // image,
       updatedAt: sequelize.fn("NOW"),
     },
     {
