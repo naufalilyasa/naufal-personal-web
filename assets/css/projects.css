@@ -6,13 +6,27 @@
   font-family: "Inter", serif;
 }
 
-/* Project Form */
+/* Projects Style */
 .form-project-container {
   width: 50% !important;
 }
 
+.back-button-container {
+  float: left;
+  margin-left: 10rem;
+  margin-top: 10rem !important;
+}
+
+.back-button {
+  font-size: 3.5rem !important;
+}
+
 @media screen and (max-width: 992px) {
   .form-project-container {
+    width: 100% !important;
+  }
+
+  .back-button-container {
     width: 100% !important;
   }
 }

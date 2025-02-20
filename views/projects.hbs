@@ -31,7 +31,14 @@
           </div>
           <div class="d-flex flex-row gap-1">
             <a href="/project-edit/{{this.id}}" class="btn btn-dark flex-fill">edit</a>
-            <button class="btn btn-outline-danger flex-fill" data-bs-toggle="modal" data-bs-target="#exampleModal">delete</button>
+            <input type="hidden" id="delete{{this.id}}"  value="/project/{{this.id}}?_method=DELETE">
+            <button 
+              class="btn btn-outline-danger flex-fill" 
+              data-bs-toggle="modal" 
+              data-bs-target="#exampleModal"
+              onclick="passingDataToModal({{this.id}})" >
+              delete
+            </button>
           </div>
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,7 +53,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  <form action="/project/{{this.id}}?_method=DELETE" method="post">
+                  <form id="formDeleteModal" action="" method="post">
                     <button class="btn btn-outline-danger" type="submit">DELETE</button>
                   </form>
                 </div>
@@ -59,5 +66,5 @@
     {{/each}}
   </div>
 </section>
-
+<script src="/js/modal.js"></script>
 {{/layout}}

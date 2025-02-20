@@ -130,7 +130,7 @@ app.post("/blog-create", createBlog);
 app.put("/blog-edit/:id", updateBlog);
 
 // DELETE BLOG
-app.delete("/blogs/:id", deleteBlog);
+app.delete("/blog/:id", deleteBlog);
 
 // RENDER UNAUTHORIZED PAGE
 app.get("/unauthorized", renderUnauthorizedPage);
