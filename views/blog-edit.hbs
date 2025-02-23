@@ -1,7 +1,7 @@
 {{#> layout currentPage = "blogs"}}
 <!-- Edit Blog -->
 <main class="container w-50">
-  <form action="/blog-edit/{{blog.id}}?_method=PUT" method="post" enctype="multipart/form-data" class="create-blog-form">
+  <form action="/blog-update/{{blog.id}}?_method=PUT" method="post" enctype="multipart/form-data" class="create-blog-form">
     <h1>Edit Blog</h1>
 
     {{#if messages.success}}

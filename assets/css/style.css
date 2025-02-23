@@ -25,6 +25,12 @@ p {
   width: 40%;
 }
 
+/* BLOG DETAIL STYLE */
+
+.blog-detail-container {
+  width: 75%;
+}
+
 @media screen and (max-width: 992px) {
   .login-form-container {
     width: 90% !important;
@@ -32,5 +38,9 @@ p {
 
   .register-form-container {
     width: 90% !important;
+  }
+
+  .blog-detail-container {
+    width: 90%;
   }
 }

@@ -90,7 +90,13 @@ async function updateProject(req, res) {
     typescript,
     description,
   } = req.body;
-  const image = req.file.path;
+  let image = req.file;
+
+  if (!image) {
+    image = req.body.image;
+  } else {
+    image = image.path;
+  }
 
   const editedProject = {
     projectName: projectName,
@@ -108,7 +114,7 @@ async function updateProject(req, res) {
   const updatedProject = await Project.update(editedProject, {
     where: { id: id },
   })
-    .then((res) => console.log(res))
+    // .then((res) => console.log(res))
     .catch((error) => console.error(error));
 
   res.redirect("/projects");

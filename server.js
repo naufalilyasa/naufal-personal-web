@@ -94,7 +94,7 @@ app.get("/project-edit/:id", renderEditProjectPage);
 app.post("/project-create", upload.single("image"), createProject);
 
 // DELETE PROJECT
-app.delete("/project/:id", deleteProject);
+app.delete("/project-delete/:id", deleteProject);
 
 // UPDATE PROJECT
 app.put("/project-update/:id", upload.single("image"), updateProject);
@@ -130,11 +130,11 @@ app.get("/blog-edit/:id", renderEditBlogPage);
 app.post("/blog-create", checkUser, upload.single("image"), createBlog);
 
 // UPDATE BLOG
-app.put("/blog-edit/:id", upload.single("image"), updateBlog);
+app.put("/blog-update/:id", upload.single("image"), updateBlog);
 // app.put("/blog-edit/:id", checkUser, upload.single("image"), updateBlog);
 
 // DELETE BLOG
-app.delete("/blog/:id", deleteBlog);
+app.delete("/blog-delete/:id", deleteBlog);
 
 // RENDER UNAUTHORIZED PAGE
 app.get("/unauthorized", renderUnauthorizedPage);

@@ -30,7 +30,7 @@ function renderCreateBlogPage(req, res) {
   res.render("blog-create");
 }
 
-// RENDER EDIT PAGE
+// RENDER EDIT BLOG PAGE
 async function renderEditBlogPage(req, res) {
   const user = req.session.user;
   const id = req.params.id;
@@ -45,7 +45,7 @@ async function renderEditBlogPage(req, res) {
     include: { model: User, as: "user", attributes: { exclude: ["password"] } },
     where: { id: id },
   });
-
+  // console.log("blog yg dipilij: ", blogYangDipilih.user.id);
   if (user.id !== blogYangDipilih.user.id) {
     return res.redirect("/unauthorized");
   }
@@ -129,7 +129,13 @@ async function deleteBlog(req, res) {
 async function updateBlog(req, res) {
   const id = req.params.id;
   const { title, content } = req.body;
-  const image = req.file.path;
+  let image = req.file;
+
+  if (!image) {
+    image = req.body.image;
+  } else {
+    image = image.path;
+  }
 
   const updatedBlog = await Blog.update(
     {

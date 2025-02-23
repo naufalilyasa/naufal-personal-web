@@ -20,7 +20,7 @@
               {{#if (equal ../user.id this.authorId) }}
               <div class="d-flex flex-row justify-content-end gap-3 order-lg-1 order-2">
                 <a href="/blog-edit/{{this.id}}" class="btn btn-secondary">Edit Blog</a>
-                <input type="hidden" id="delete{{this.id}}"  value="/blog/{{this.id}}?_method=DELETE">
+                <input type="hidden" id="delete{{this.id}}"  value="/blog-delete/{{this.id}}?_method=DELETE">
                 <button
                   class="btn btn-danger" 
                   data-bs-toggle="modal" 
