@@ -6,6 +6,7 @@ module.exports = {
     password: "postgres",
     database: "naufal_personalweb_db",
     host: "127.0.0.1",
+    port: "5432",
     dialect: "postgres",
     dialectModule: pg,
   },
@@ -15,6 +16,7 @@ module.exports = {
     database: process.env.POSTGRES_DATABASE,
     host: process.env.POSTGRES_HOST,
     dialect: "postgres",
+    port: process.env.POSTGRES_PORT,
     dialectModule: pg,
     dialectOptions: {
       ssl: {
