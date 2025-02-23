@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const config = require("../config/config.js");
 require("dotenv").config();
 
-const sequelize = new Sequelize(config(config(process.env.NODE_ENV)));
+const sequelize = new Sequelize(config[process.env.NODE_ENV]);
 
 // RENDER PROJECTS PAGE
 async function renderProjectsPage(req, res) {
