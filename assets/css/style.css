@@ -24,3 +24,13 @@ p {
 .login-form-container {
   width: 40%;
 }
+
+@media screen and (max-width: 992px) {
+  .login-form-container {
+    width: 90% !important;
+  }
+
+  .register-form-container {
+    width: 90% !important;
+  }
+}

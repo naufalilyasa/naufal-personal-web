@@ -45,6 +45,7 @@ async function createProject(req, res) {
     typescript,
   } = req.body;
   const { projectName, description } = req.body;
+  const image = req.file.path;
 
   const projects = {
     projectName: projectName,
@@ -54,8 +55,9 @@ async function createProject(req, res) {
     technologyNextJs: Boolean(nextJs),
     technologyReactJs: Boolean(reactJs),
     technologyTypescript: Boolean(typescript),
+    image: image,
     description: description,
-    image: "/img/class.webp",
+    // image: "/img/class.webp",
   };
 
   await Project.create(projects)
@@ -88,6 +90,7 @@ async function updateProject(req, res) {
     typescript,
     description,
   } = req.body;
+  const image = req.file.path;
 
   const editedProject = {
     projectName: projectName,
@@ -98,6 +101,7 @@ async function updateProject(req, res) {
     technologyReactJs: Boolean(reactJs),
     technologyTypescript: Boolean(typescript),
     description: description,
+    image: image,
     updatedAt: sequelize.fn("NOW"),
   };
 

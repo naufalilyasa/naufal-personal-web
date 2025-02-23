@@ -34,9 +34,10 @@ function renderCreateBlogPage(req, res) {
 async function renderEditBlogPage(req, res) {
   const user = req.session.user;
   const id = req.params.id;
-  console.log("user:", user);
+  // console.log("user:", user);
 
   if (!user) {
+    req.flash("warning", "Please login");
     return res.redirect("/login");
   }
 
@@ -61,14 +62,15 @@ async function renderBlogDetailPage(req, res) {
   const user = req.session.user;
   const id = req.params.id;
 
+  if (!user) {
+    req.flash("warning", "Please login");
+    res.redirect("/login");
+  }
+
   const blogYangDipilih = await Blog.findOne({
     include: { model: User, as: "user", attributes: { exclude: ["password"] } },
     where: { id: id },
   });
-
-  if (!user) {
-    res.redirect("/login");
-  }
 
   if (blogYangDipilih === null) {
     res.render("page-404");
@@ -84,7 +86,7 @@ async function renderBlogDetailPage(req, res) {
 async function createBlog(req, res) {
   const userData = req.session.user;
   const { title, content } = req.body;
-  let dummyImage = "https://picsum.photos/200/150";
+  // let dummyImage = "https://picsum.photos/200/150";
   const image = req.file.path;
 
   if (!userData) {
@@ -110,6 +112,12 @@ async function createBlog(req, res) {
 async function deleteBlog(req, res) {
   const id = req.params.id;
 
+  const user = req.session.user;
+
+  if (!user) {
+    return res.redirect("/login");
+  }
+
   const deletedBlog = await Blog.destroy({
     where: { id: id },
   });
@@ -121,13 +129,13 @@ async function deleteBlog(req, res) {
 async function updateBlog(req, res) {
   const id = req.params.id;
   const { title, content } = req.body;
-  // const image = req.file.path;
+  const image = req.file.path;
 
   const updatedBlog = await Blog.update(
     {
       title: title,
       content: content,
-      // image,
+      image: image,
       updatedAt: sequelize.fn("NOW"),
     },
     {

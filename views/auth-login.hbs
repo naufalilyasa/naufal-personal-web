@@ -10,6 +10,11 @@
         {{messages.success}}
       </div>
       {{/if}}
+      {{#if messages.warning}}
+      <div class="alert alert-warning" role="alert">
+        {{messages.warning}}
+      </div>
+      {{/if}}
       {{#if messages.error}}
       <div class="alert alert-danger" role="alert">
         {{messages.error}}

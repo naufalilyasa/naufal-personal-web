@@ -1,9 +1,14 @@
 {{#> layout currentPage = "blogs"}}
 <!-- Edit Blog -->
 <main class="container w-50">
-  <form action="/blog-edit/{{blog.id}}?_method=PUT" method="post" class="create-blog-form">
+  <form action="/blog-edit/{{blog.id}}?_method=PUT" method="post" enctype="multipart/form-data" class="create-blog-form">
     <h1>Edit Blog</h1>
 
+    {{#if messages.success}}
+      <div class="alert alert-success" role="alert">
+        {{messages.success}}
+      </div>
+    {{/if}}
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input type="text" name="title" id="title" class="form-control" value="{{blog.title}}" />
@@ -14,7 +19,7 @@
     </div>
     <div class="mb-3">
       <label for="image" class="form-label">Upload Image</label>
-      <input type="file" name="image" id="image" class="form-control" />
+      <input type="file" name="image" id="image" class="form-control" value="{{blog.image}}" />
     </div>
     <div class="d-flex justify-content-end">
       <button type="submit" class="btn btn-primary px-3">Submit</button>
