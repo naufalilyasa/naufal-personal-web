@@ -49,7 +49,8 @@ const checkUser = require("./middlewares/auth.js");
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
 
-app.use(express.static("assets"));
+// app.use(express.static("assets"));
+app.use("/assets", express.static(path.join(__dirname, "./assets")));
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -8,7 +8,7 @@
     <div class="col">
       <div class="card p-3 shadow gx-3 my-3" id="projectList">
         <div class="d-flex flex-column gap-2">
-          <img src="{{this.image}}" alt="" class="card-img-top" />
+          <img src="/{{this.image}}" alt="" class="card-img-top" />
           {{!-- <p>{{this.image}}</p> --}}
           <h2 id="projectName{{this.id}}" class="card-title fs-4">{{this.projectName}}</h2>
           <p class="fs-6 fw-light text-body-tertiary">durasi {{projectDuration this.startProjectDate this.endProjectDate}}</p>
@@ -17,16 +17,16 @@
           </p>
           <div class="d-flex flex-row mb-3">
             {{#if this.technologyNodeJs}}
-            <img src="/img/nodejs.png" alt="" width="32" height="32">
+            <img src="/assets/img/nodejs.png" alt="" width="32" height="32">
             {{/if}}
             {{#if this.technologyNextJs}}
-            <img src="/img/nextjs.png" alt="" width="32" height="32">
+            <img src="/assets/img/nextjs.png" alt="" width="32" height="32">
             {{/if}}
             {{#if this.technologyReactJs}}
-            <img src="/img/react.png" alt="" width="32" height="32">
+            <img src="/assets/img/react.png" alt="" width="32" height="32">
             {{/if}}
             {{#if this.technologyTypescript}}
-            <img src="/img/typescript.png" alt="" width="32" height="32">
+            <img src="/assets/img/typescript.png" alt="" width="32" height="32">
             {{/if}}
           </div>
           <div class="d-flex flex-row gap-1">
@@ -66,5 +66,5 @@
     {{/each}}
   </div>
 </section>
-<script src="/js/modal.js"></script>
+<script src="/assets/js/modal.js"></script>
 {{/layout}}

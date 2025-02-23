@@ -27,7 +27,7 @@ const testimonialsHTML = (testimonials) => {
       (testimonial) =>
         `<article class="col">
             <div class="card border border-dark-subtle border-2 p-3">
-              <img class="card-img-top" src="img/${testimonial.image}" alt="" />
+              <img class="card-img-top" src="/assets/img/${testimonial.image}" alt="" />
               <div class="card-body">
                 <p class="fw-light text-body-tertiary fst-italic">"${testimonial.caption}"</p>
                 <p class="card-text text-end">- ${testimonial.author}</p>
