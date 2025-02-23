@@ -4,11 +4,11 @@ const methodOverride = require("method-override");
 const path = require("path");
 const flash = require("express-flash");
 const session = require("express-session");
-require("dotenv");
+require("dotenv").config();
 
 const app = express();
 // const port = process.env.PORT;
-const port = 3030;
+const port = process.env.SERVER_PORT || 3030;
 
 const {
   renderProjectsPage,
