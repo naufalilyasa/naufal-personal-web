@@ -1,8 +1,9 @@
 const { Sequelize } = require("sequelize");
 const config = require("../config/config.js");
 const { Blog, User } = require("../models");
+require("dotenv").config();
 
-const sequelize = new Sequelize(config.development);
+const sequelize = new Sequelize(config(process.env.NODE_ENV));
 
 // RENDER BLOGS PAGE
 async function renderBlogPage(req, res) {
