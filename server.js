@@ -4,11 +4,22 @@ const methodOverride = require("method-override");
 const path = require("path");
 const flash = require("express-flash");
 const session = require("express-session");
+const { createClient } = require("redis");
+const { RedisStore } = require("connect-redis");
+
 require("dotenv").config();
 
 const app = express();
-// const port = process.env.PORT;
+
 const port = process.env.SERVER_PORT || 3030;
+// const { RedisStore } = connectRedis(session);
+let redisClient = createClient();
+redisClient.connect().catch(console.error);
+
+let redisStore = new RedisStore({
+  client: redisClient,
+  prefix: "myapp:",
+});
 
 const {
   renderProjectsPage,
@@ -44,7 +55,7 @@ const {
 const upload = require("./middlewares/upload-file.js");
 const { projectDuration } = require("./utils/projectDuration.js");
 const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
-const checkUser = require("./middlewares/auth.js");
+const { checkUser, checkAuth } = require("./middlewares/auth.js");
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
@@ -58,10 +69,16 @@ app.use(methodOverride("_method"));
 app.use(flash());
 app.use(
   session({
+    store: redisStore,
     name: "mySession",
     secret: "mySecret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      maxAge: 1000 * 60 * 30,
+    },
   })
 );
 
@@ -116,7 +133,7 @@ app.post("/register", authRegister);
 app.get("/logout", authLogout);
 
 // BLOG-LIST PAGE
-app.get("/blogs", renderBlogPage);
+app.get("/blogs", checkAuth, renderBlogPage);
 
 // BLOG-DETAIL PAGE
 app.get("/blog-detail/:id", renderBlogDetailPage);

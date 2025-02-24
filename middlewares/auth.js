@@ -7,4 +7,14 @@ function checkUser(req, res, next) {
   next();
 }
 
-module.exports = checkUser;
+function checkAuth(req, res, next) {
+  console.log("req.session.clientId", req.session.clientId);
+  if (!req.session || !req.session.clientId) {
+    const err = new Error("You shall not pass.");
+    err.statusCode = 401;
+    next(err);
+  }
+  next();
+}
+
+module.exports = { checkUser, checkAuth };
