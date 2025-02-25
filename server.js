@@ -52,9 +52,11 @@ const {
   renderUnauthorizedPage,
   render404NotFoundPage,
 } = require("./controllers/controller-v1.js");
-const upload = require("./middlewares/upload-file.js");
+
 const { projectDuration } = require("./utils/projectDuration.js");
 const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
+
+const upload = require("./middlewares/upload-file.js");
 const { checkUser, checkAuth } = require("./middlewares/auth.js");
 
 app.set("view engine", "hbs");
