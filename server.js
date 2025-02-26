@@ -101,8 +101,9 @@ app.use(flash());
 
 app.use((req, res, next) => {
   console.log("Request Headers:", req.headers);
-  console.log("Request Cookies:", req.headers.cookie);
-  console.log("NODE_ENV: ", process.env.NODE_ENV);
+  console.log("Request header Cookies:", req.headers.cookie);
+  console.log("NODE_ENV: ", process.env.NODE_ENV === "production");
+  console.log("Request Cookies:", req.cookies);
   next();
 });
 
