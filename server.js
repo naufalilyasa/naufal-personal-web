@@ -6,7 +6,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const { createClient } = require("redis");
 const { RedisStore } = require("connect-redis");
-const Redis = require("ioredis");
+// const Redis = require("ioredis");
 
 require("dotenv").config();
 
@@ -16,7 +16,6 @@ const port = process.env.SERVER_PORT || 3030;
 
 // Local
 // let redisClient = createClient();
-// redisClient.connect().catch(console.error);
 // const redisUrl = new URL(process.env.REDIS_URL);
 
 // let redisStore = new RedisStore({
@@ -38,10 +37,11 @@ const redisClient = createClient({
   },
 });
 
-redisClient.on("error", function (err) {
-  throw err;
-});
-await redisClient.connect();
+redisClient.connect().catch(console.error);
+// redisClient.on("error", function (err) {
+//   throw err;
+// });
+// await redisClient.connect();
 
 const {
   renderProjectsPage,
