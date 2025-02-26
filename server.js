@@ -38,10 +38,10 @@ const redisClient = createClient({
   },
 });
 
-client.on("error", function (err) {
+redisClient.on("error", function (err) {
   throw err;
 });
-await client.connect();
+await redisClient.connect();
 
 const {
   renderProjectsPage,
