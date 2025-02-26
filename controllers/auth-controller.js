@@ -43,8 +43,8 @@ async function authLogin(req, res) {
     return res.redirect("/login");
   }
 
-  req.session.clientId = "abc123";
-  req.session.myNum = 5;
+  // req.session.clientId = "abc123";
+  // req.session.myNum = 5;
   let loggedInUser = userData.toJSON();
   req.session.user = loggedInUser;
 

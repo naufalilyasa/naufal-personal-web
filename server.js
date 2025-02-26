@@ -17,6 +17,13 @@ let redisClient = createClient();
 redisClient.connect().catch(console.error);
 
 let redisStore = new RedisStore({
+  url: process.env.REDIS_URL,
+  socket: {
+    // host: process.env.REDIS_HOST || "127.0.0.1",
+    // port: process.env.REDIS_PORT || 6379,
+    tls: true,
+  },
+  // password: process.env.REDIS_PASSWORD || null,
   client: redisClient,
   prefix: "myapp:",
 });
@@ -73,13 +80,13 @@ app.use(
   session({
     store: redisStore,
     name: "mySession",
-    secret: "mySecret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false,
-      httpOnly: true,
-      maxAge: 1000 * 60 * 30,
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: false,
+      maxAge: 1000 * 60 * 30, // 30 minutes
     },
   })
 );
@@ -135,7 +142,7 @@ app.post("/register", authRegister);
 app.get("/logout", authLogout);
 
 // BLOG-LIST PAGE
-app.get("/blogs", checkAuth, renderBlogPage);
+app.get("/blogs", renderBlogPage);
 
 // BLOG-DETAIL PAGE
 app.get("/blog-detail/:id", renderBlogDetailPage);
