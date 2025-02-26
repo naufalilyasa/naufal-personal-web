@@ -6,6 +6,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const { createClient } = require("redis");
 const { RedisStore } = require("connect-redis");
+const cors = require("cors");
 // const Redis = require("ioredis");
 
 require("dotenv").config();
@@ -79,6 +80,7 @@ app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
 
 // app.use(express.static("assets"));
+app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "./assets")));
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(express.json());
