@@ -5,7 +5,7 @@ const path = require("path");
 const flash = require("express-flash");
 const session = require("express-session");
 const { createClient } = require("redis");
-const { RedisStore } = require("connect-redis").default;
+const { RedisStore } = require("connect-redis");
 const Redis = require("ioredis");
 
 require("dotenv").config();
