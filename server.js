@@ -178,6 +178,16 @@ app.put("/blog-update/:id", upload.single("image"), updateBlog);
 // DELETE BLOG
 app.delete("/blog-delete/:id", deleteBlog);
 
+app.get("/set-flash", (req, res) => {
+  req.flash("success", "Flash message berhasil disimpan!");
+  res.redirect("/show-flash");
+});
+
+// Contoh route untuk menampilkan flash message
+app.get("/show-flash", (req, res) => {
+  res.send(req.flash("success"));
+});
+
 // RENDER UNAUTHORIZED PAGE
 app.get("/unauthorized", renderUnauthorizedPage);
 
