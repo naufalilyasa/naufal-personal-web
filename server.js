@@ -20,7 +20,7 @@ const redisUrl = new URL(process.env.REDIS_URL);
 let redisStore = new RedisStore({
   url: process.env.REDIS_URL,
   socket: {
-    host: redisUrl.hostname || "127.0.0.1",
+    host: redisUrl.hostname,
     port: redisUrl.port,
     tls: true,
   },
@@ -30,7 +30,7 @@ let redisStore = new RedisStore({
   ttl: 1000 * 60 * 30,
   prefix: "myapp:",
 });
-// console.log("redis hostname :", redisUrl.password);
+// console.log("Current Vercel Environment:", process.env.VERCEL_ENV);
 
 const {
   renderProjectsPage,
@@ -69,7 +69,6 @@ const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
 
 const upload = require("./middlewares/upload-file.js");
 const { checkUser, checkAuth } = require("./middlewares/auth.js");
-const { log } = require("console");
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
