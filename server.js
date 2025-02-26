@@ -31,10 +31,6 @@ const port = process.env.SERVER_PORT || 3030;
 
 const redisClient = createClient({
   url: process.env.REDIS_URL,
-  socket: {
-    tls: true,
-    rejectUnauthorized: false,
-  },
 });
 
 redisClient.connect().catch(console.error);
@@ -186,6 +182,11 @@ app.get("/set-flash", (req, res) => {
 // Contoh route untuk menampilkan flash message
 app.get("/show-flash", (req, res) => {
   res.send(req.flash("success"));
+});
+
+app.get("/session", (req, res) => {
+  req.session.views = (req.session.views || 0) + 1;
+  res.send(`Session Views: ${req.session.views}`);
 });
 
 // RENDER UNAUTHORIZED PAGE
