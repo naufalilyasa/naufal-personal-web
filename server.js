@@ -15,16 +15,18 @@ const port = process.env.SERVER_PORT || 3030;
 // const { RedisStore } = connectRedis(session);
 let redisClient = createClient();
 redisClient.connect().catch(console.error);
+const redisUrl = new URL(process.env.REDIS_URL);
 
 let redisStore = new RedisStore({
   url: process.env.REDIS_URL,
   socket: {
-    // host: process.env.REDIS_HOST || "127.0.0.1",
-    // port: process.env.REDIS_PORT || 6379,
+    host: redisUrl.hostname || "127.0.0.1",
+    port: redisUrl.port || 6379,
     tls: true,
   },
   // password: process.env.REDIS_PASSWORD || null,
   client: redisClient,
+  ttl: 86400,
   prefix: "myapp:",
 });
 
