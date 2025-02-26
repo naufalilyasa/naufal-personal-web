@@ -14,15 +14,6 @@ const app = express();
 
 const port = process.env.SERVER_PORT || 3030;
 
-app.set("trust proxy", 1);
-
-app.use(
-  cors({
-    origin:
-      "https://naufal-personal-web-git-redis-session-naufal-ilyasas-projects.vercel.app/",
-    credentials: true,
-  })
-);
 // Local
 // let redisClient = createClient();
 // const redisUrl = new URL(process.env.REDIS_URL);
@@ -86,7 +77,13 @@ const { checkUser, checkAuth } = require("./middlewares/auth.js");
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
+app.set("trust proxy", 1);
 
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 app.use("/assets", express.static(path.join(__dirname, "./assets")));
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(express.json());
@@ -100,7 +97,8 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      // secure: process.env.NODE_ENV === "production",
+      secure: true,
       httpOnly: true,
       sameSite: "none",
       maxAge: 1000 * 60 * 30, // 30 minutes
@@ -193,19 +191,10 @@ app.put("/blog-update/:id", upload.single("image"), updateBlog);
 // DELETE BLOG
 app.delete("/blog-delete/:id", deleteBlog);
 
-app.get("/set-flash", (req, res) => {
-  req.flash("success", "Flash message berhasil disimpan!");
-  res.redirect("/show-flash");
-});
-
-// Contoh route untuk menampilkan flash message
-app.get("/show-flash", (req, res) => {
-  res.send(req.flash("success"));
-});
-
-app.get("/session", (req, res) => {
-  req.session.views = (req.session.views || 0) + 1;
-  res.send(`Session Views: ${req.session.views}`);
+app.get("/check-session", (req, res) => {
+  console.log("Session ID:", req.sessionID);
+  console.log("Session Data:", req.session);
+  res.send(req.session);
 });
 
 // RENDER UNAUTHORIZED PAGE
