@@ -38,12 +38,10 @@ const redisClient = createClient({
   },
 });
 
-redisClient.on("error", (err) => console.error("Redis Client Error", err));
-
-(async () => {
-  await redisClient.connect();
-  console.log("Connected to Redis");
-})();
+client.on("error", function (err) {
+  throw err;
+});
+await client.connect();
 
 const {
   renderProjectsPage,
