@@ -34,10 +34,8 @@ const redisClient = createClient({
 });
 
 redisClient.connect().catch(console.error);
-// redisClient.on("error", function (err) {
-//   throw err;
-// });
-// await redisClient.connect();
+
+const redisStore = new RedisStore({ client: redisClient, prefix: "sess:" });
 
 const {
   renderProjectsPage,
@@ -88,7 +86,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(
   session({
-    store: new RedisStore({ client: redisClient, prefix: "sess:" }),
+    store: redisStore,
     name: "mySession",
     secret: process.env.SESSION_SECRET,
     resave: false,
