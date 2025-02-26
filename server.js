@@ -26,7 +26,7 @@ let redisStore = new RedisStore({
   },
   // password: process.env.REDIS_PASSWORD || null,
   client: redisClient,
-  ttl: 86400,
+  ttl: 1000 * 60 * 30,
   prefix: "myapp:",
 });
 
