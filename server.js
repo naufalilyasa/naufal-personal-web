@@ -15,36 +15,35 @@ const app = express();
 const port = process.env.SERVER_PORT || 3030;
 
 // Local
-let redisClient = createClient();
-redisClient.connect().catch(console.error);
+// let redisClient = createClient();
+// redisClient.connect().catch(console.error);
 // const redisUrl = new URL(process.env.REDIS_URL);
 
-let redisStore = new RedisStore({
-  // url: process.env.REDIS_URL,
-  socket: {
-    host: "127.0.0.1",
-    port: 6379,
-    tls: true,
-  },
-  // password: process.env.REDIS_PASSWORD || null,
-  client: redisClient,
-  // password: redisUrl.password,
-  ttl: 1000 * 60 * 30,
-  prefix: "sess:",
-});
-// console.log("Current Vercel Environment:", process.env.VERCEL_ENV);
+// let redisStore = new RedisStore({
+//   socket: {
+//     host: "127.0.0.1",
+//     port: 6379,
+//     tls: true,
+//   },
+//   client: redisClient,
+//   ttl: 1000 * 60 * 30,
+//   prefix: "sess:",
+// });
 
-// Vercel
-const redisClientProd = new Redis(process.env.REDIS_URL, {
-  tls: {
+const redisClient = createClient({
+  url: process.env.REDIS_URL,
+  socket: {
+    tls: true,
     rejectUnauthorized: false,
   },
 });
 
-const redisStoreProd = new RedisStore({
-  client: redisClientProd,
-  prefix: "sess:",
-});
+redisClient.on("error", (err) => console.error("Redis Client Error", err));
+
+(async () => {
+  await redisClient.connect();
+  console.log("Connected to Redis");
+})();
 
 const {
   renderProjectsPage,
@@ -96,7 +95,7 @@ app.use(methodOverride("_method"));
 app.use(flash());
 app.use(
   session({
-    store: redisStoreProd,
+    store: new RedisStore({ client: redisClient, prefix: "sess:" }),
     name: "mySession",
     secret: process.env.SESSION_SECRET,
     resave: false,
