@@ -94,11 +94,18 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
+      sameSite: "lax",
       maxAge: 1000 * 60 * 30, // 30 minutes
     },
   })
 );
 app.use(flash());
+
+app.use((req, res, next) => {
+  console.log("Request Headers:", req.headers);
+  console.log("Request Cookies:", req.headers.cookie);
+  next();
+});
 
 hbs.registerPartials(__dirname + "/views/partials", function (err) {});
 hbs.registerHelper("equal", function (a, b) {
