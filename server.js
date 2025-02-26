@@ -6,8 +6,6 @@ const flash = require("express-flash");
 const session = require("express-session");
 const { createClient } = require("redis");
 const { RedisStore } = require("connect-redis");
-const cors = require("cors");
-// const Redis = require("ioredis");
 
 require("dotenv").config();
 
@@ -79,8 +77,6 @@ const { checkUser, checkAuth } = require("./middlewares/auth.js");
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
 
-// app.use(express.static("assets"));
-app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "./assets")));
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(express.json());
@@ -96,7 +92,7 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "lax",
       maxAge: 1000 * 60 * 30, // 30 minutes
     },
   })
@@ -106,6 +102,7 @@ app.use(flash());
 app.use((req, res, next) => {
   console.log("Request Headers:", req.headers);
   console.log("Request Cookies:", req.headers.cookie);
+  console.log("NODE_ENV: ", process.env.NODE_ENV);
   next();
 });
 
