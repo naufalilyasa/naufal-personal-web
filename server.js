@@ -90,7 +90,6 @@ app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.use(flash());
 app.use(
   session({
     store: new RedisStore({ client: redisClient, prefix: "sess:" }),
@@ -105,6 +104,7 @@ app.use(
     },
   })
 );
+app.use(flash());
 
 hbs.registerPartials(__dirname + "/views/partials", function (err) {});
 hbs.registerHelper("equal", function (a, b) {
