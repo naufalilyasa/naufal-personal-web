@@ -6,6 +6,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const { createClient } = require("redis");
 const { RedisStore } = require("connect-redis");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -13,6 +14,15 @@ const app = express();
 
 const port = process.env.SERVER_PORT || 3030;
 
+app.set("trust proxy", 1);
+
+app.use(
+  cors({
+    origin:
+      "https://naufal-personal-web-git-redis-session-naufal-ilyasas-projects.vercel.app/",
+    credentials: true,
+  })
+);
 // Local
 // let redisClient = createClient();
 // const redisUrl = new URL(process.env.REDIS_URL);
@@ -92,7 +102,7 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 1000 * 60 * 30, // 30 minutes
     },
   })
@@ -100,6 +110,9 @@ app.use(
 app.use(flash());
 
 app.use((req, res, next) => {
+  res.on("finish", () => {
+    console.log("Response Headers:", res.getHeaders());
+  });
   console.log("Session ID:", req.sessionID);
   console.log("Session Data:", req.session);
   // console.log("Request Headers:", req.headers);
