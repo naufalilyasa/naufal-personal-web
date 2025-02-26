@@ -14,29 +14,6 @@ const app = express();
 
 const port = process.env.SERVER_PORT || 3030;
 
-// Local
-// let redisClient = createClient();
-// const redisUrl = new URL(process.env.REDIS_URL);
-
-// let redisStore = new RedisStore({
-//   socket: {
-//     host: "127.0.0.1",
-//     port: 6379,
-//     tls: true,
-//   },
-//   client: redisClient,
-//   ttl: 1000 * 60 * 30,
-//   prefix: "sess:",
-// });
-
-const redisClient = createClient({
-  url: process.env.REDIS_URL,
-});
-
-redisClient.connect().catch(console.error);
-
-const redisStore = new RedisStore({ client: redisClient, prefix: "sess:" });
-
 const {
   renderProjectsPage,
   renderProjectCreatePage,
@@ -75,6 +52,15 @@ const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
 const upload = require("./middlewares/upload-file.js");
 const { checkUser, checkAuth } = require("./middlewares/auth.js");
 
+// Redis
+const redisClient = createClient({
+  url: process.env.REDIS_URL,
+});
+
+redisClient.connect().catch(console.error);
+
+const redisStore = new RedisStore({ client: redisClient, prefix: "sess:" });
+
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
 app.set("trust proxy", 1);
@@ -107,18 +93,6 @@ app.use(
   })
 );
 app.use(flash());
-
-app.use((req, res, next) => {
-  res.on("finish", () => {
-    console.log("Response Headers:", res.getHeaders());
-  });
-  console.log("Session ID:", req.sessionID);
-  console.log("Session Data:", req.session);
-  // console.log("Request Headers:", req.headers);
-  // console.log("Request header Cookies:", req.headers.cookie);
-  // console.log("Request Cookies:", req.cookies);
-  next();
-});
 
 hbs.registerPartials(__dirname + "/views/partials", function (err) {});
 hbs.registerHelper("equal", function (a, b) {
@@ -191,12 +165,6 @@ app.put("/blog-update/:id", upload.single("image"), updateBlog);
 
 // DELETE BLOG
 app.delete("/blog-delete/:id", deleteBlog);
-
-app.get("/check-session", (req, res) => {
-  console.log("Session ID:", req.sessionID);
-  console.log("Session Data:", req.session);
-  res.send(req.session);
-});
 
 // RENDER UNAUTHORIZED PAGE
 app.get("/unauthorized", renderUnauthorizedPage);
