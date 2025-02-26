@@ -39,7 +39,10 @@ let redisStore = new RedisStore({
   prefix: "sess:",
 });
 // console.log("Current Vercel Environment:", process.env.VERCEL_ENV);
-let redisStoreProd = new RedisStore({ client: redisClient, prefix: "sess:" });
+let redisStoreProd = new RedisStore({
+  client: redisClientProd,
+  prefix: "sess:",
+});
 
 const {
   renderProjectsPage,
