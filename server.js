@@ -5,7 +5,7 @@ const path = require("path");
 const flash = require("express-flash");
 const session = require("express-session");
 const { createClient } = require("redis");
-const { RedisStore } = require("connect-redis");
+const RedisStore = require("connect-redis").default;
 const Redis = require("ioredis");
 
 require("dotenv").config();
@@ -13,17 +13,12 @@ require("dotenv").config();
 const app = express();
 
 const port = process.env.SERVER_PORT || 3030;
-// const { RedisStore } = connectRedis(session);
+// const { RedisStore } = require("connect-redis");
+
+// Local
 let redisClient = createClient();
 redisClient.connect().catch(console.error);
-const redisUrl = new URL(process.env.REDIS_URL);
-
-// Vercel
-const redisClientProd = new Redis(process.env.REDIS_URL, {
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+// const redisUrl = new URL(process.env.REDIS_URL);
 
 let redisStore = new RedisStore({
   // url: process.env.REDIS_URL,
@@ -39,7 +34,15 @@ let redisStore = new RedisStore({
   prefix: "sess:",
 });
 // console.log("Current Vercel Environment:", process.env.VERCEL_ENV);
-let redisStoreProd = new RedisStore({
+
+// Vercel
+const redisClientProd = new Redis(process.env.REDIS_URL, {
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
+const redisStoreProd = new RedisStore({
   client: redisClientProd,
   prefix: "sess:",
 });
@@ -94,14 +97,14 @@ app.use(methodOverride("_method"));
 app.use(flash());
 app.use(
   session({
-    store: redisStoreProd || redisStore,
+    store: redisStoreProd,
     name: "mySession",
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       secure: process.env.NODE_ENV === "production",
-      httpOnly: false,
+      httpOnly: true,
       maxAge: 1000 * 60 * 30, // 30 minutes
     },
   })
