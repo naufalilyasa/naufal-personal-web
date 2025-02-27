@@ -19,6 +19,7 @@ const {
   deleteProject,
   renderEditProjectPage,
   updateProject,
+  renderProjectDetailPage,
 } = require("./controllers/projects-controller.js");
 const {
   renderBlogPage,
@@ -91,6 +92,9 @@ app.get("/testimonials", renderTestimonialsPage);
 
 // RENDER PROJECTS PAGE
 app.get("/projects", renderProjectsPage);
+
+// BLOG-DETAIL PAGE
+app.get("/project-detail/:id", renderProjectDetailPage);
 
 // RENDER CREATE PROJECT PAGE
 app.get("/project-create", renderProjectCreatePage);

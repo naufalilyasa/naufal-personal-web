@@ -1,0 +1,31 @@
+{{#> layout currentPage = "projects"}}
+
+<!-- Project Detail -->
+<article class="container project-detail-container my-5">
+  <div class="d-flex flex-column gap-3">
+    <h1 class="text-center mb-3 fs-1">{{project.projectName}}</h1>
+
+    <p class="fs-4 fw-medium">Created By {{userData.name}}</p>
+    <p class="fs-5">Durasi penyelesaian project {{projectDuration project.startProjectDate project.endProjectDate}}</p>
+    <img src="{{project.image}}" />
+    <p class="fs-5 mt-3">Technology yang dipakai: </p>
+    <div class="d-flex flex-row mb-3">
+      {{#if project.technologyNodeJs}}
+      <img src="/assets/img/nodejs.png" alt="" width="50" height="50">
+      {{/if}}
+      {{#if project.technologyNextJs}}
+      <img src="/assets/img/nextjs.png" alt="" width="50" height="50">
+      {{/if}}
+      {{#if project.technologyReactJs}}
+      <img src="/assets/img/react.png" alt="" width="50" height="50">
+      {{/if}}
+      {{#if project.technologyTypescript}}
+      <img src="/assets/img/typescript.png" alt="" width="50" height="50">
+      {{/if}}
+    </div>
+    <p class="fs-5">
+      {{project.description}}
+    </p>
+  </div>
+</article>
+{{/layout}}

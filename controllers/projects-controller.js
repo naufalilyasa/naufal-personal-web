@@ -25,15 +25,26 @@ async function renderProjectsPage(req, res) {
 // RENDER EDIT PAGE
 async function renderEditProjectPage(req, res) {
   const id = req.params.id;
+  const user = req.session.user;
+
+  if (!user) {
+    req.flash("warning", "Please login");
+    return res.redirect("/login");
+  }
 
   const existingProject = await Project.findOne({
+    include: { model: User, as: "user", attributes: { exclude: ["password"] } },
     where: { id: id },
   });
+
+  if (user.id !== existingProject.user.id) {
+    return res.redirect("/unauthorized");
+  }
 
   if (existingProject === null) {
     res.redirect("/404-not-found");
   } else {
-    res.render("project-edit", { project: existingProject });
+    res.render("project-edit", { project: existingProject, user: user });
   }
 }
 
@@ -42,6 +53,32 @@ function renderProjectCreatePage(req, res) {
   const user = req.session.user;
 
   res.render("project-create", { user: user });
+}
+
+// RENDER PROJECT DETAIL PAGE
+async function renderProjectDetailPage(req, res) {
+  const user = req.session.user;
+  const id = req.params.id;
+
+  if (!user) {
+    req.flash("warning", "Please login");
+    res.redirect("/login");
+  }
+
+  const projectYangDipilih = await Project.findOne({
+    include: { model: User, as: "user", attributes: { exclude: ["password"] } },
+    where: { id: id },
+  });
+
+  if (projectYangDipilih === null) {
+    res.render("page-404");
+  } else {
+    res.render("project-detail", {
+      project: projectYangDipilih,
+      userData: projectYangDipilih.user,
+      user: user,
+    });
+  }
 }
 
 // CREATE PROJECT
@@ -134,6 +171,7 @@ async function updateProject(req, res) {
 module.exports = {
   renderProjectsPage,
   renderProjectCreatePage,
+  renderProjectDetailPage,
   renderEditProjectPage,
   createProject,
   deleteProject,

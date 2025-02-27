@@ -28,7 +28,7 @@ function renderCreateBlogPage(req, res) {
   if (!user) {
     res.redirect("/login");
   }
-  res.render("blog-create");
+  res.render("blog-create", { user: user });
 }
 
 // RENDER EDIT BLOG PAGE
@@ -52,7 +52,7 @@ async function renderEditBlogPage(req, res) {
   }
 
   if (blogYangDipilih === null) {
-    res.render("page-404");
+    res.redirect("/404-not-found");
   } else {
     res.render("blog-edit", { blog: blogYangDipilih, user: user });
   }
