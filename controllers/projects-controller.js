@@ -1,4 +1,4 @@
-const { Project } = require("../models");
+const { Project, User } = require("../models");
 const { Sequelize } = require("sequelize");
 const config = require("../config/config.js");
 require("dotenv").config();
@@ -8,11 +8,18 @@ const sequelize = new Sequelize(config[process.env.NODE_ENV]);
 // RENDER PROJECTS PAGE
 async function renderProjectsPage(req, res) {
   const user = req.session.user;
+
   const getProjects = await Project.findAll({
+    include: { model: User, as: "user", attributes: { exclude: ["password"] } },
     order: [["createdAt", "DESC"]],
   });
 
-  res.render("projects", { projects: getProjects, user: user });
+  // console.log(getProjects);
+  if (!user) {
+    res.render("projects", { projects: getProjects });
+  } else {
+    res.render("projects", { projects: getProjects, user: user });
+  }
 }
 
 // RENDER EDIT PAGE
@@ -32,7 +39,9 @@ async function renderEditProjectPage(req, res) {
 
 // RENDER CREATE PROJECT PAGE
 function renderProjectCreatePage(req, res) {
-  res.render("project-create");
+  const user = req.session.user;
+
+  res.render("project-create", { user: user });
 }
 
 // CREATE PROJECT
@@ -47,6 +56,7 @@ async function createProject(req, res) {
   } = req.body;
   const { projectName, description } = req.body;
   const image = req.file.path;
+  const userId = req.session.user.id;
 
   const projects = {
     projectName: projectName,
@@ -58,7 +68,7 @@ async function createProject(req, res) {
     technologyTypescript: Boolean(typescript),
     image: image,
     description: description,
-    // image: "/img/class.webp",
+    authorId: userId,
   };
 
   await Project.create(projects)
