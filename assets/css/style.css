@@ -43,28 +43,30 @@ p {
   width: 85% !important;
 }
 
+.blog-form-container {
+  width: 50% !important;
+}
+
 @media screen and (max-width: 992px) {
   .login-form-container {
     width: 90% !important;
+    margin-bottom: 14rem;
   }
 
   .register-form-container {
     width: 90% !important;
+    margin-bottom: 10rem;
   }
 
   .blog-detail-container {
     width: 90%;
   }
 
-  .login-form-container {
-    margin-bottom: 14rem;
-  }
-
-  .register-form-container {
-    margin-bottom: 10rem;
-  }
-
   .alert-container {
     width: 95% !important;
+  }
+
+  .blog-form-container {
+    width: 100% !important;
   }
 }
