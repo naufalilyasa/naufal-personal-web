@@ -39,6 +39,10 @@ p {
   margin-bottom: 12rem;
 }
 
+.alert-container {
+  width: 85% !important;
+}
+
 @media screen and (max-width: 992px) {
   .login-form-container {
     width: 90% !important;
@@ -58,5 +62,9 @@ p {
 
   .register-form-container {
     margin-bottom: 10rem;
+  }
+
+  .alert-container {
+    width: 95% !important;
   }
 }

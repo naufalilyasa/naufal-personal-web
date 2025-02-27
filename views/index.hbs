@@ -1,12 +1,12 @@
 {{#> layout currentPage = 'home' user = user}}
 <!-- Main Section -->
 {{#if messages.success}}
-<div class="container alert alert-success mt-3" role="alert">
+<div class="container alert-container alert alert-success mt-3" role="alert">
   {{messages.success}} {{user.name}}
 </div>
 {{/if}}
 {{#if messages.warning}}
-<div class="container alert alert-warning mt-3" role="alert">
+<div class="container alert-container alert alert-warning mt-3" role="alert">
   {{messages.warning}} {{user.name}}
 </div>
 {{/if}}
