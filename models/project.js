@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Project.belongsTo(models.User, {
+        foreignKey: "authorId",
+        as: "user",
+        onDelete: "SET NULL",
+        onUpdate: "CASCADE",
+      });
     }
   }
   Project.init(
@@ -22,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       technologyTypescript: DataTypes.BOOLEAN,
       description: DataTypes.TEXT,
       image: DataTypes.STRING,
+      authorId: DataTypes.INTEGER,
     },
     {
       sequelize,
