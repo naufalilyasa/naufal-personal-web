@@ -1,10 +1,10 @@
 {{#> layout currentPage = 'project'}}
 
 <!-- Form Project -->
-<main class="container-fluid bg-body-tertiary mt-3">
+<main class="container-fluid bg-body-tertiary">
   <section class="container form-project-container">
     <div class="d-flex flex-column">
-      <h1 class="text-center">ADD MY PROJECT</h1>
+      <h1 class="text-center mt-3">Edit Project</h1>
       <form action="/project-update/{{project.id}}?_method=PUT" method="post" enctype="multipart/form-data">
         <div class="my-3">
           <label for="projectName" class="form-text">Project Name</label>
