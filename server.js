@@ -4,8 +4,6 @@ const methodOverride = require("method-override");
 const path = require("path");
 const flash = require("express-flash");
 const session = require("express-session");
-const { createClient } = require("redis");
-const { RedisStore } = require("connect-redis");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -46,58 +44,38 @@ const {
   render404NotFoundPage,
 } = require("./controllers/controller-v1.js");
 
+const { equalPage } = require("./utils/equalPage.js");
 const { projectDuration } = require("./utils/projectDuration.js");
 const { formatDateToWIB, getRelativeTime } = require("./utils/time.js");
 
 const upload = require("./middlewares/upload-file.js");
-const { checkUser, checkAuth } = require("./middlewares/auth.js");
+const { checkUser } = require("./middlewares/auth.js");
+const redisConfig = require("./config/redisConfig.js");
 
 // Redis
-const redisClient = createClient({
-  url: process.env.REDIS_URL,
-});
+// const redisClient = createClient({
+//   url: process.env.REDIS_URL,
+// });
 
-redisClient.connect().catch(console.error);
+// redisClient.connect().catch(console.error);
 
-const redisStore = new RedisStore({ client: redisClient, prefix: "sess:" });
+// const redisStore = new RedisStore({ client: redisClient, prefix: "sess:" });
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./views"));
 app.set("trust proxy", 1);
 
-app.use(
-  cors({
-    credentials: true,
-  })
-);
+app.use(cors({ credentials: true }));
 app.use("/assets", express.static(path.join(__dirname, "./assets")));
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.use(
-  session({
-    store: redisStore,
-    name: "mySession",
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    proxy: true,
-    cookie: {
-      // secure: process.env.NODE_ENV === "production",
-      secure: true,
-      httpOnly: true,
-      sameSite: "none",
-      maxAge: 1000 * 60 * 30, // 30 minutes
-    },
-  })
-);
+app.use(session(redisConfig[process.env.NODE_ENV]));
 app.use(flash());
 
 hbs.registerPartials(__dirname + "/views/partials", function (err) {});
-hbs.registerHelper("equal", function (a, b) {
-  return a === b;
-});
+hbs.registerHelper("equal", equalPage);
 hbs.registerHelper("projectDuration", projectDuration);
 hbs.registerHelper("formatDateToWIB", formatDateToWIB);
 hbs.registerHelper("getRelativeTime", getRelativeTime);
